@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title></title>
+  <style>
+    body,dl,dd,p,h1,h2,h3,h4,h5,h6{margin:0;}
+    ol,ul,li{margin:0;padding:0;list-style:none;}
+    img{border:none;vertical-align:top;}
+    div{
+      position: absolute;
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      background-color: #f66;
+    }
+  </style>
+</head>
+<body>
+
+</body>
+<script>
+    var oBox =document.getElementsByTagName("div");
+    var attr={
+        num:5,//小球个数
+        left:0,
+        top:0,
+        x_step:10,
+        y_step:10,
+        delay:500
+    },
+        attr1={
+            left:0,
+            top:0,
+            x_step:10,
+            y_step:10,
+        },
+        attr2={
+            left:0,
+            top:0,
+            x_step:10,
+            y_step:10,
+        },
+        attr3={
+            left:0,
+            top:0,
+            x_step:10,
+            y_step:10,
+        },
+        attr4={
+            left:0,
+            top:0,
+            x_step:10,
+            y_step:10,
+        };
+    var _width=document.documentElement.clientWidth-100,
+        _height=document.documentElement.clientHeight-100;
+
+    //生成小球
+    for (var i=0;i<attr.num;i++){
+        var myBox =document.createElement("div");
+        document.body.appendChild(myBox);
+    }
+
+    move();
+    var now =new Date();
+    function move() {
+        if (attr.delay){
+            if (now-now==0){
+                if (attr.top >= _height || attr.top < 0) {
+                    attr.y_step = -attr.y_step;
+                    var oColor = `rgba(${Math.random() * 255},${Math.random() * 255},${Math.random() * 255},${Math.random()})`
+                }
+                if (attr.left >= _width || attr.left < 0) {
+                    attr.x_step = -attr.x_step;
+                }
+                attr.left += attr.x_step;
+                attr.top += attr.y_step;
+                oBox[0].style.left =attr.left+"px";
+                oBox[0].style.top =attr.top+"px";
+                oBox[0].style.backgroundColor =oColor;
+            }
+            if (new Date().getTime()-now>=attr.delay*1){
+                if (attr1.top >= _height || attr1.top < 0) {
+                    attr1.y_step = -attr1.y_step;
+                    var oColor = `rgba(${Math.random() * 255},${Math.random() * 255},${Math.random() * 255},${Math.random()})`
+                }
+                if (attr1.left >= _width || attr1.left < 0) {
+                    attr1.x_step = -attr1.x_step;
+                }
+                attr1.left += attr1.x_step;
+                attr1.top += attr1.y_step;
+                oBox[1].style.left =attr1.left+"px";
+                oBox[1].style.top =attr1.top+"px";
+                oBox[1].style.backgroundColor =oColor;
+
+            }
+            if (new Date().getTime()-now>=attr.delay*2) {
+                if (attr2.top >= _height || attr2.top < 0) {
+                    attr2.y_step = -attr2.y_step;
+                    var oColor = `rgba(${Math.random() * 255},${Math.random() * 255},${Math.random() * 255},${Math.random()})`
+                }
+                if (attr2.left >= _width || attr2.left < 0) {
+                    attr2.x_step = -attr2.x_step;
+                }
+                attr2.left += attr2.x_step;
+                attr2.top += attr2.y_step;
+                oBox[2].style.left =attr2.left+"px";
+                oBox[2].style.top =attr2.top+"px";
+                oBox[2].style.backgroundColor =oColor;
+            }
+            if (new Date().getTime()-now>=attr.delay*3) {
+                if (attr3.top >= _height || attr3.top < 0) {
+                    attr3.y_step = -attr3.y_step;
+                    var oColor = `rgba(${Math.random() * 255},${Math.random() * 255},${Math.random() * 255},${Math.random()})`
+                }
+                if (attr3.left >= _width || attr3.left < 0) {
+                    attr3.x_step = -attr3.x_step;
+                }
+                attr3.left += attr3.x_step;
+                attr3.top += attr3.y_step;
+                oBox[3].style.left =attr3.left+"px";
+                oBox[3].style.top =attr3.top+"px";
+                oBox[3].style.backgroundColor =oColor;
+            }
+            if (new Date().getTime()-now>=attr.delay*4) {
+                if (attr4.top >= _height || attr4.top < 0) {
+                    attr4.y_step = -attr4.y_step;
+                    var oColor = `rgba(${Math.random() * 255},${Math.random() * 255},${Math.random() * 255},${Math.random()})`
+                }
+                if (attr4.left >= _width || attr4.left < 0) {
+                    attr4.x_step = -attr4.x_step;
+                }
+                attr4.left += attr4.x_step;
+                attr4.top += attr4.y_step;
+                oBox[4].style.left =attr4.left+"px";
+                oBox[4].style.top =attr4.top+"px";
+                oBox[4].style.backgroundColor =oColor;
+            }
+        }
+        requestAnimationFrame(move)
+    }
+
+
+
+
+
+</script>
+</html>

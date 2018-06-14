@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title></title>
+  <style>
+    body,dl,dd,p,h1,h2,h3,h4,h5,h6{margin:0;}
+    ol,ul,li{margin:0;padding:0;list-style:none;}
+    img{border:none;vertical-align:top;}
+    .box1{
+      margin: 200px;
+      height: 1000px;
+      width: 1000px;
+      padding: 50px;
+      border:1px solid #000;
+    }
+    .box2{
+      height: 100%;
+      position: relative;
+      border:10px solid green;
+    }
+    .box3{
+      margin: 100px;
+      width: 100px;
+      height: 100px;
+      background-color: #f66;
+      border: 10px solid #000;
+    }
+  </style>
+</head>
+<body>
+  <div class="box1">
+    <div class="box2">
+      <div class="box3"></div>
+    </div>
+  </div>
+</body>
+<script>
+  var oBox1 =document.getElementsByClassName("box1")[0],
+      oBox2 =document.getElementsByClassName("box2")[0],
+      oBox3 =document.getElementsByClassName("box3")[0];
+
+  function getTop(ele) {
+      var _statue =true;//判断第一次进来
+      var offset={
+          left:0,
+          top:0,
+      };
+      while(ele){
+          offset.left+=ele.offsetLeft+(_statue ? 0:ele.clientLeft);
+          offset.top += ele.offsetTop+(_statue ? 0:ele.clientTop);
+
+          _statue=false;
+          ele=ele.offsetParent;
+      }
+      return offset;
+  }
+  console.log(getTop(oBox3))
+
+  document.onmousemove =function (e) {
+      console.log(e.clientX,e.clientY);
+  }
+</script>
+</html>

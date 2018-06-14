@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        li{
+            list-style: none;
+        }
+        .meg-view{
+            overflow: hidden;
+            width: 200px;
+            height: 30px;
+            margin: auto;
+            border:1px solid #ccc;
+            line-height: 30px;
+            text-align: center;
+        }
+
+    </style>
+<body>
+    <div class="meg-view">
+        <ul class="meg-list">
+            <li>
+                <a href="">这是信息1</a>
+            </li>
+            <li>
+                <a href="">这是信息2</a>
+            </li>
+            <li>
+                <a href="">这是信息3</a>
+            </li>
+        </ul>
+    </div>
+</body>
+<script>
+    var oUl =document.getElementsByTagName("ul")[0];
+    var oView =document.getElementsByClassName("meg-view")[0],
+        _height =oView.clientHeight;//获取可视高
+
+    megMove();
+    function megMove() {
+        (function move() {
+            if (oView.scrollTop>=_height){
+                oView.scrollTop=0;
+                oUl.appendChild(oUl.children[0]);
+                setTimeout(megMove,3000)
+            }else{
+                oView.scrollTop+=1;
+                requestAnimationFrame(move)
+            }
+        })();
+    }
+
+</script>
+</html>

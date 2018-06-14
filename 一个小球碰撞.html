@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title></title>
+  <style>
+    body,dl,dd,p,h1,h2,h3,h4,h5,h6{margin:0;}
+    ol,ul,li{margin:0;padding:0;list-style:none;}
+    img{border:none;vertical-align:top;}
+    #box{
+      position: absolute;
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      background-image: linear-gradient(#2c33ff,#ff6666);
+    }
+  </style>
+</head>
+<body>
+  <div id="box"></div>
+</body>
+<script>
+  var oBox =document.getElementById("box");
+  var attr={
+      left:0,
+      top:0,
+      x_step:10,
+      y_step:10
+  };
+  var _width=document.documentElement.clientWidth-100,
+       _height=document.documentElement.clientHeight-100;
+  move();
+  function move() {
+      if (attr.top>=_height||attr.top<0){
+          attr.y_step=-attr.y_step;
+      }
+      if (attr.left>=_width||attr.left<0){
+          attr.x_step =-attr.x_step;
+      }
+     attr.left +=attr.x_step;
+     attr.top +=attr.y_step;
+      oBox.style.left =attr.left+"px";
+      oBox.style.top =attr.top+"px";
+      requestAnimationFrame(move);
+  };
+
+</script>
+</html>
