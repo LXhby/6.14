@@ -38,9 +38,10 @@
 
   //生成小球
   function creatBall(opction) {
+
       var oBall =document.createElement("div");
 
-      //保存opaction 小球碰撞的时候可能会用到
+      //保存opaction 小球碰撞的时候可能会用到，保存的是复杂对象类型 会变化
       oBall.ballOpaction =opction;
       oBall.className="ball";
       setStyle(oBall,{
@@ -51,6 +52,7 @@
           background:opction.background
       });
       (function fn() {
+          console.log(oBall.ballOpaction);
           opction.x += opction.spx;
           opction.y += opction.spy;
           if (opction.x<=0||opction.x >= _width-opction.r){

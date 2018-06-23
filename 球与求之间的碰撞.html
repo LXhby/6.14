@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title></title>
+  <style>
+    body,dl,dd,p,h1,h2,h3,h4,h5,h6{margin:0;}
+    ol,ul,li{margin:0;padding:0;list-style:none;}
+    img{border:none;vertical-align:top;}
+    .ball{
+      position:absolute;
+      border-radius: 50%;
+    }
+  </style>
+</head>
+<body>
+<div></div>
+</body>
+<script>
+    var _width =document.documentElement.clientWidth,
+        _height =document.documentElement.clientHeight,
+        balls= document.getElementsByClassName("ball");
+
+    //当浏览器宽度发生改变时候触发
+    window.onresize = function () {
+        _width =document.documentElement.clientWidth;
+        _height =document.documentElement.clientHeight;
+    };
+
+    document.onclick =function () {
+        creatBall({
+            r:randomNum(80,150), //80~150
+            x:0,
+            y:0,
+            spx:randomNum(5,10),
+            spy:randomNum(5,10),
+            background:randomColor(),
+        });
+    };
+    //判断小球碰撞
+    (function checkBoom() {
+        for (var i=0;i<balls.length;i++){
+            var thatBall =balls[i];
+            for (var j=i+1;j<balls.length;j++){
+                var checkBall =balls[j];
+
+                if(checkBall&&collisionBall(thatBall,checkBall)){
+                  [thatBall.ballOpaction.spx,checkBall.ballOpaction.spx]=[checkBall.ballOpaction.spx,thatBall.ballOpaction.spx];
+                    [thatBall.ballOpaction.spy,checkBall.ballOpaction.spy]=[checkBall.ballOpaction.spy,thatBall.ballOpaction.spy];
+
+                    //碰撞之后改变颜色
+                    setStyle(thatBall,{
+                        backgroundColor:randomColor()
+                    });
+                    setStyle(checkBall,{
+                        backgroundColor:randomColor()
+                    });
+                }
+            }
+        }
+        requestAnimationFrame(checkBoom);//每次浏览器重绘时候判断
+    })();
+  //检测小球是否碰撞
+    function collisionBall(thatBall,checkBall) {
+        var a=thatBall.ballOpaction.x+thatBall.ballOpaction.r/2-(checkBall.ballOpaction.x+checkBall.ballOpaction.r/2),
+            b=thatBall.ballOpaction.y+thatBall.ballOpaction.r/2-(checkBall.ballOpaction.y+checkBall.ballOpaction.r/2);
+        var c = Math.sqrt(a*a+b*b);
+        return c<=(thatBall.ballOpaction.r/2+checkBall.ballOpaction.r/2);
+    }
+
+
+    //生成小球
+    function creatBall(opction) {
+
+        var oBall =document.createElement("div");
+
+        //保存opaction 小球碰撞的时候可能会用到，保存的是复杂对象类型 会变化
+        oBall.ballOpaction =opction;
+        oBall.className="ball";
+        setStyle(oBall,{
+            width:opction.r,
+            height:opction.r,
+            left:opction.x,
+            top:opction.y,
+            background:opction.background
+        });
+        (function fn() {
+            console.log(oBall.ballOpaction);
+            opction.x += opction.spx;
+            opction.y += opction.spy;
+            if (opction.x<=0||opction.x >= _width-opction.r){
+                opction.spx /=-1;
+                opction.x =Math.min(_width-opction.r,opction.x);
+                opction.x = Math.max(0,opction.x);
+            }
+            if (opction.y<=0||opction.y>=_height-opction.r) {
+                opction.spy /=-1;
+                opction.y =Math.min(_height-opction.r,opction.y);
+                opction.y = Math.max(0,opction.y);
+                //更新背景颜色
+                setStyle(oBall,{
+                    backgroundColor:randomColor(),
+                });
+            }
+            setStyle(oBall,{
+                left:opction.x,
+                top:opction.y
+            });
+            requestAnimationFrame(fn);
+        })();
+        document.body.appendChild(oBall);
+    }
+    //随机区间
+    function randomNum(minN,maxN) {
+        return parseInt((Math.random()*(maxN-minN+1))+minN);//取【10~20】
+    }
+    //随机颜色
+    // function randomColor() {
+    //     return `rgb(`+randomNum(0,255)+`,`+randomNum(0,255)+`,`+randomNum(0,255)+`)`
+    // }
+    console.log(randomColor());
+    function randomColor() {//16进制 0123456789abcdef  0x 代表16进制 0x10 是16
+        var _color=parseInt(Math.random()*0xffffff).toString(16);//位数有可能不是6位数，需要补0；
+        fill =new Array(7-_color.length);
+        return `#`+fill.join("0")+_color;
+    }
+    //设置样式
+    function setStyle(ele,attr) {
+        var emAttr =["width","height","left","top"];
+        for (var key in attr){
+            if (emAttr.indexOf(key) !=-1){
+                ele.style[key]=attr[key]+"px";
+            }else{
+                ele.style[key]=attr[key];
+            }
+        }
+    }
+</script>
+</html>
